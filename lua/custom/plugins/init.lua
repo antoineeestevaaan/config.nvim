@@ -2,7 +2,6 @@ return {
   -- Detect tabstop and shiftwidth automatically
   'tpope/vim-sleuth',
 
-  'tpope/vim-fugitive',
   'tpope/vim-rhubarb',
 
   -- "gc" to comment visual regions/lines
@@ -21,31 +20,6 @@ return {
       vim.keymap.set("n", "<leader>gpr", function() goto_preview.goto_preview_references() end, { silent = true, desc = "" })
     end
   },
-
-  -- Git
-  {
-    "tpope/vim-fugitive",
-    config = function()
-      vim.keymap.set("n", "<leader>gs", vim.cmd.Git)
-    end
-  },
-  {
-    "NeogitOrg/neogit",
-    dependencies = {
-      "nvim-lua/plenary.nvim",         -- required
-      "nvim-telescope/telescope.nvim", -- optional
-      "sindrets/diffview.nvim",        -- optional
-      "ibhagwan/fzf-lua",              -- optional
-    },
-    config = function()
-      local neogit = require('neogit')
-      neogit.setup({})
-
-      vim.keymap.set("n", "<leader>gg", neogit.open, { silent = true, desc = "" })
-    end
-  },
-
-  { "rbong/vim-flog" },
 
   -- motion in space and time
   {
