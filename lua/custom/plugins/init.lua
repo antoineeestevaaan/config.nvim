@@ -23,13 +23,6 @@ return {
 
   -- motion in space and time
   {
-    "ggandor/leap.nvim",
-    config = function()
-      require('leap').add_default_mappings()
-    end
-  },
-
-  {
     "theprimeagen/harpoon",
     config = function()
       local mark = require("harpoon.mark")
