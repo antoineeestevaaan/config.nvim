@@ -21,14 +21,6 @@ return {
     end
   },
 
-  -- motion in space and time
-  {
-    "mbbill/undotree",
-    config = function()
-      vim.keymap.set("n", "<leader>u", vim.cmd.UndotreeToggle)
-    end
-  },
-
   -- misc
   {
     "laytan/cloak.nvim",
