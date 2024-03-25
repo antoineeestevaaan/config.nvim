@@ -103,5 +103,22 @@ return {
         map({ 'o', 'x' }, 'ih', ':<C-U>Gitsigns select_hunk<CR>', { desc = 'select git hunk' })
       end,
     },
+  },
+
+  {
+    "kdheepak/lazygit.nvim",
+    cmd = {
+      "LazyGit",
+      "LazyGitConfig",
+      "LazyGitCurrentFile",
+      "LazyGitFilter",
+      "LazyGitFilterCurrentFile",
+    },
+    dependencies = {
+        "nvim-lua/plenary.nvim",
+    },
+    keys = {
+       { "<leader>glg", "<cmd>LazyGit<cr>", desc = "LazyGit" }
+    }
   }
 }
