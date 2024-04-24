@@ -65,3 +65,7 @@ vim.api.nvim_create_autocmd({ "BufEnter", "WinEnter" }, {
         }
     end
 })
+
+vim.cmd([[
+    command! Browser :!qutebrowser --target window
+]])
