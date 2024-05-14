@@ -15,12 +15,3 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require('lazy').setup({ { import = 'custom.plugins' } }, {})
-
-pcall(require, 'custom/options')
-pcall(require, 'custom/map')
-pcall(require, 'custom/after')
-
-pcall(require, 'custom/nushell')
-
--- The line beneath this is called `modeline`. See `:help modeline`
--- vim: ts=2 sts=2 sw=2 et
