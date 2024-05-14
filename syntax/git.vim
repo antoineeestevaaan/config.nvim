@@ -1,7 +1,7 @@
 " Vim syntax file
 " Language:	generic git output
 " Maintainer:	Tim Pope <vimNOSPAM@tpope.org>
-" Last Change:	2023 Dec 28
+" Last Change:	2022 Jan 05
 
 if exists("b:current_syntax")
   finish
@@ -38,7 +38,7 @@ syn match  gitReflog /^\x\{40,\} \x\{40,\} .\{-\}\d\+\s-\d\{4\}\t.*/ skipwhite c
 syn region gitDiff start=/^\%(diff --git \)\@=/ end=/^\%(diff --\|$\)\@=/ contains=@gitDiff fold
 syn region gitDiff start=/^\%(@@ -\)\@=/ end=/^\%(diff --\%(git\|cc\|combined\) \|$\)\@=/ contains=@gitDiff
 
-syn region gitDiffMerge start=/^\%(diff --\%(cc\|combined\) \)\@=/ end=/^\%(diff --\|$\)\@=/ contains=@gitDiff fold
+syn region gitDiffMerge start=/^\%(diff --\%(cc\|combined\) \)\@=/ end=/^\%(diff --\|$\)\@=/ contains=@gitDiff
 syn region gitDiffMerge start=/^\%(@@@@* -\)\@=/ end=/^\%(diff --\|$\)\@=/ contains=@gitDiff
 syn match gitDiffAdded "^ \++.*" contained containedin=gitDiffMerge
 syn match gitDiffAdded "{+[^}]*+}" contained containedin=gitDiff
@@ -81,6 +81,8 @@ syn match  gitHashAbbrev /\<\x\{4,\}\>/             contained nextgroup=gitHashA
 syn match  gitHashAbbrev /\<\x\{4,39\}\.\.\./he=e-3 contained nextgroup=gitHashAbbrev skipwhite contains=@NoSpell
 syn match  gitHashStage /\<\x\{4,\}\>/              contained nextgroup=gitStage skipwhite contains=@NoSpell
 syn match  gitStage     /\<\d\t\@=/                 contained contains=@NoSpell
+syn match gitHEAD /HEAD ->/
+syn match gitBranch / (.\{-}) / contains=gitHEAD contains=gitHashAbbrev
 
 
 syn match  gitNotesHeader /^Notes:\ze\n    /
@@ -107,5 +109,7 @@ hi def link gitStage             gitType
 hi def link gitType              Type
 hi def link gitDiffAdded         diffAdded
 hi def link gitDiffRemoved       diffRemoved
+hi def link gitBranch            String
+hi def link gitHEAD              Special
 
 let b:current_syntax = "git"
