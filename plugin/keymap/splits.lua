@@ -11,3 +11,9 @@ vim.keymap.set("n", "<leader>wH", "<C-w>H", { silent = true, desc = "Move [w]ind
 vim.keymap.set("n", "<leader>wJ", "<C-w>J", { silent = true, desc = "Move [w]indow down" })
 vim.keymap.set("n", "<leader>wK", "<C-w>K", { silent = true, desc = "Move [w]indow up" })
 vim.keymap.set("n", "<leader>wL", "<C-w>L", { silent = true, desc = "Move [w]indow to the right" })
+
+-- These mappings control the size of splits (height/width)
+vim.keymap.set("n", "<leader>ww", "<c-w>5<", { desc = "Make [w]indow [w]ider" })
+vim.keymap.set("n", "<leader>wn", "<c-w>5>", { desc = "Make [w]indow [n]arrower" })
+vim.keymap.set("n", "<leader>wt", "<C-W>+", { desc = "Make [w]indow [t]aller" })
+vim.keymap.set("n", "<leader>ws", "<C-W>-", { desc = "Make [w]indow [s]horter" })
