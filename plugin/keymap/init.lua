@@ -1,8 +1,5 @@
 vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
 
-vim.keymap.set("n", "<leader><leader>x", "<cmd>source %<CR>", { desc = "Execute the current file" })
-vim.keymap.set("n", "<leader>so", ":source ~/.config/nvim/init.lua<CR>", { silent = true, desc = "[so]urce the config" })
-
 vim.keymap.set("n", "<Esc>", ":nohlsearch<CR><Esc>", { silent = true, desc = "Escape and remove the search highlight" })
 
 vim.keymap.set("n", "<leader>pf", vim.cmd.Ex, { silent = true, desc = "O[p]en the [f]ile explorer" })
