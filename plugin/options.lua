@@ -21,6 +21,15 @@ vim.opt.hlsearch = true
 vim.opt.splitbelow = true
 vim.opt.splitright = true
 
+vim.opt.smartcase = true
+vim.opt.ignorecase = true
+
+vim.opt.formatoptions:remove "o"
+
+vim.opt.signcolumn = "yes"
+
+vim.opt.inccommand = "nosplit"
+
 vim.opt.shell = "/bin/bash"
 
 vim.opt.foldenable = false
