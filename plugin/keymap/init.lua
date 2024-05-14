@@ -10,7 +10,6 @@ vim.keymap.set("n", "<leader>pf", vim.cmd.Ex, { silent = true, desc = "O[p]en th
 -- This is going to get me cancelled
 vim.keymap.set("i", "<C-c>", "<Esc>", { desc = "get out of insert mode with control + C" })
 
--- misc
 vim.keymap.set("n", "Q", "<nop>", { desc = "do not do anything on Q" })
 vim.keymap.set("n", "<leader>f", vim.lsp.buf.format, { desc = "format the code with LSP" })
 
