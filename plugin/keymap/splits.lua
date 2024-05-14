@@ -17,3 +17,7 @@ vim.keymap.set("n", "<leader>ww", "<c-w>5<", { desc = "Make [w]indow [w]ider" })
 vim.keymap.set("n", "<leader>wn", "<c-w>5>", { desc = "Make [w]indow [n]arrower" })
 vim.keymap.set("n", "<leader>wt", "<C-W>+", { desc = "Make [w]indow [t]aller" })
 vim.keymap.set("n", "<leader>ws", "<C-W>-", { desc = "Make [w]indow [s]horter" })
+
+require('which-key').register {
+    ['<leader>w'] = { name = '[W]indows', _ = 'which_key_ignore' },
+}
