@@ -5,6 +5,10 @@ return {
       local mark = require("harpoon.mark")
       local ui = require("harpoon.ui")
 
+      require('which-key').register {
+        ['<leader>h'] = { name = '[H]arpoon', _ = 'which_key_ignore' },
+      }
+
       vim.keymap.set("n", "<leader>ha", mark.add_file,
         { silent = true, desc = "[h]arpoon: [a]dd a file to the menu" })
       vim.keymap.set("n", "<leader>he", ui.toggle_quick_menu,
