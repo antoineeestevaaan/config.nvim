@@ -1,22 +1,28 @@
-vim.keymap.set("n", "<leader>tt", ":terminal<CR>", { silent = true, desc = "Open a [t]erminal" })
-vim.keymap.set("n", "<leader>th", ":split +terminal<CR>", { silent = true, desc = "Open a [t]erminal in a [h]orizontal split" })
-vim.keymap.set("n", "<leader>tv", ":vsplit +terminal<CR>", { silent = true, desc = "Open a [t]erminal in a [v]ertical split" })
-
 -- Easily hit escape in terminal mode.
 vim.keymap.set("t", "<esc><esc>", "<c-\\><c-n>")
 
--- Open a terminal at the bottom of the screen with a fixed height.
-vim.keymap.set("n", ",st", function()
+-- Open terminals
+vim.keymap.set("n", "<leader>tt", ":terminal<CR>", { silent = true, desc = "Open a [t]erminal" })
+
+vim.keymap.set("n", "<leader>tb", function()
   vim.cmd.new()
   vim.cmd.wincmd "J"
   vim.api.nvim_win_set_height(0, 12)
   vim.wo.winfixheight = true
   vim.cmd.term()
-end)
+end, { silent = true, desc = "Open a [t]erminal in at the [b]ottom" })
 
-local set = vim.opt_local
+vim.keymap.set("n", "<leader>tr", function()
+  vim.cmd.new()
+  vim.cmd.wincmd "L"
+  vim.api.nvim_win_set_width(0, 50)
+  vim.wo.winfixwidth = true
+  vim.cmd.term()
+end, { silent = true, desc = "Open a [t]erminal in to the [r]ight" })
 
 -- Set local settings for terminal buffers
+local set = vim.opt_local
+
 vim.api.nvim_create_autocmd("TermOpen", {
   group = vim.api.nvim_create_augroup("custom-term-open", {}),
   callback = function()
@@ -25,3 +31,7 @@ vim.api.nvim_create_autocmd("TermOpen", {
     set.scrolloff = 0
   end,
 })
+
+require('which-key').register {
+  ['<leader>t'] = { name = '[T]erminal', _ = 'which_key_ignore' },
+}
