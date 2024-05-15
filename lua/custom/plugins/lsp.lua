@@ -20,12 +20,13 @@ return {
         nmap('<leader>lrn', vim.lsp.buf.rename, '[R]e[n]ame')
         nmap('<leader>lca', vim.lsp.buf.code_action, '[C]ode [A]ction')
 
-        nmap('<leader>lgd', require('telescope.builtin').lsp_definitions, '[G]oto [D]efinition')
-        nmap('<leader>lgr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
-        nmap('<leader>lgI', require('telescope.builtin').lsp_implementations, '[G]oto [I]mplementation')
-        nmap('<leader>lD', require('telescope.builtin').lsp_type_definitions, 'Type [D]efinition')
-        nmap('<leader>lds', require('telescope.builtin').lsp_document_symbols, '[D]ocument [S]ymbols')
-        nmap('<leader>lws', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[W]orkspace [S]ymbols')
+        local telescope = require('telescope.builtin')
+        nmap('<leader>lgd', telescope.lsp_definitions, '[G]oto [D]efinition')
+        nmap('<leader>lgr', telescope.lsp_references, '[G]oto [R]eferences')
+        nmap('<leader>lgI', telescope.lsp_implementations, '[G]oto [I]mplementation')
+        nmap('<leader>lD', telescope.lsp_type_definitions, 'Type [D]efinition')
+        nmap('<leader>lds', telescope.lsp_document_symbols, '[D]ocument [S]ymbols')
+        nmap('<leader>lws', telescope.lsp_dynamic_workspace_symbols, '[W]orkspace [S]ymbols')
 
         -- See `:help K` for why this keymap
         nmap('<leader>lh', vim.lsp.buf.hover, 'Hover Documentation')
