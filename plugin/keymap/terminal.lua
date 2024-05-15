@@ -1,3 +1,7 @@
+require('which-key').register {
+  ['<leader>t'] = { name = '[T]erminal', _ = 'which_key_ignore' },
+}
+
 -- Easily hit escape in terminal mode.
 vim.keymap.set("t", "<esc><esc>", "<c-\\><c-n>")
 
@@ -31,7 +35,3 @@ vim.api.nvim_create_autocmd("TermOpen", {
     set.scrolloff = 0
   end,
 })
-
-require('which-key').register {
-  ['<leader>t'] = { name = '[T]erminal', _ = 'which_key_ignore' },
-}

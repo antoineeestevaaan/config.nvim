@@ -1,3 +1,7 @@
+require('which-key').register {
+    ['<leader>w'] = { name = '[W]indows', _ = 'which_key_ignore' },
+}
+
 vim.keymap.set("n", "<leader>wm", "<C-w>_<C-w>|", { silent = true, desc = "[M]aximize the current [w]indow" })
 vim.keymap.set("n", "<leader>wc", "<C-w>o", { silent = true, desc = "[C]lose all but the focused [w]indow" })
 vim.keymap.set("n", "<leader>we", "<C-w>=", { silent = true, desc = "Make all [w]indows [e]qual" })
@@ -17,7 +21,3 @@ vim.keymap.set("n", "<leader>ww", "<c-w>5<", { desc = "Make [w]indow [w]ider" })
 vim.keymap.set("n", "<leader>wn", "<c-w>5>", { desc = "Make [w]indow [n]arrower" })
 vim.keymap.set("n", "<leader>wt", "<C-W>+", { desc = "Make [w]indow [t]aller" })
 vim.keymap.set("n", "<leader>ws", "<C-W>-", { desc = "Make [w]indow [s]horter" })
-
-require('which-key').register {
-    ['<leader>w'] = { name = '[W]indows', _ = 'which_key_ignore' },
-}
