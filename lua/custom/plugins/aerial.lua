@@ -13,7 +13,12 @@ return {
           vim.keymap.set('n', '}', '<cmd>AerialNext<CR>', { buffer = bufnr })
         end
       })
-      vim.keymap.set('n', '<leader>at', ':AerialToggle!<CR>')
+      vim.keymap.set(
+        'n',
+        '<leader>at',
+        ':AerialToggle!<CR>',
+        { silent = true, desc = "Open list of Aerial objets" }
+      )
 
       require('which-key').register {
         ['<leader>a'] = { name = '[A]erial', _ = 'which_key_ignore' },
