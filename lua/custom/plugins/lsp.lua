@@ -104,23 +104,23 @@ return {
         icons = true,
       }
 
-      vim.keymap.set("n", "<leader>xx", "<cmd>TroubleToggle<cr>",
-        { silent = true, noremap = true }
+      vim.keymap.set("n", "<leader>lto", "<cmd>TroubleToggle<cr>",
+        { silent = true, noremap = true, desc = "Open diagnostics" }
       )
-      vim.keymap.set("n", "<leader>xw", "<cmd>TroubleToggle workspace_diagnostics<cr>",
-        { silent = true, noremap = true }
+      vim.keymap.set("n", "<leader>ltw", "<cmd>TroubleToggle workspace_diagnostics<cr>",
+        { silent = true, noremap = true, desc = "Open workspace diagnostics" }
       )
-      vim.keymap.set("n", "<leader>xd", "<cmd>TroubleToggle document_diagnostics<cr>",
-        { silent = true, noremap = true }
+      vim.keymap.set("n", "<leader>ltd", "<cmd>TroubleToggle document_diagnostics<cr>",
+        { silent = true, noremap = true, desc = "Open document diagnostics" }
       )
-      vim.keymap.set("n", "<leader>xl", "<cmd>TroubleToggle loclist<cr>",
-        { silent = true, noremap = true }
+      vim.keymap.set("n", "<leader>ltl", "<cmd>TroubleToggle loclist<cr>",
+        { silent = true, noremap = true, desc = "Open loclist" }
       )
-      vim.keymap.set("n", "<leader>xq", "<cmd>TroubleToggle quickfix<cr>",
-        { silent = true, noremap = true }
+      vim.keymap.set("n", "<leader>ltq", "<cmd>TroubleToggle quickfix<cr>",
+        { silent = true, noremap = true, desc = "Open quickfix list" }
       )
-      vim.keymap.set("n", "<leader>xr", "<cmd>TroubleToggle lsp_references<cr>",
-        { silent = true, noremap = true }
+      vim.keymap.set("n", "<leader>ltr", "<cmd>TroubleToggle lsp_references<cr>",
+        { silent = true, noremap = true, desc = "Open references" }
       )
     end
   },
@@ -131,15 +131,15 @@ return {
       local goto_preview = require('goto-preview')
       goto_preview.setup {}
 
-      vim.keymap.set("n", "<leader>gpd", function() goto_preview.goto_preview_definition() end,
-        { silent = true, desc = "" })
-      vim.keymap.set("n", "<leader>gpt", function() goto_preview.goto_preview_type_definition() end,
-        { silent = true, desc = "" })
-      vim.keymap.set("n", "<leader>gpi", function() goto_preview.goto_preview_implementation() end,
-        { silent = true, desc = "" })
-      vim.keymap.set("n", "<leader>gP", function() goto_preview.close_all_win() end, { silent = true, desc = "" })
-      vim.keymap.set("n", "<leader>gpr", function() goto_preview.goto_preview_references() end,
-        { silent = true, desc = "" })
+      vim.keymap.set("n", "<leader>lgd", function() goto_preview.goto_preview_definition() end,
+        { silent = true, desc = "Goto definition" })
+      vim.keymap.set("n", "<leader>lgt", function() goto_preview.goto_preview_type_definition() end,
+        { silent = true, desc = "Goto type" })
+      vim.keymap.set("n", "<leader>lgi", function() goto_preview.goto_preview_implementation() end,
+        { silent = true, desc = "Goto implementation" })
+      vim.keymap.set("n", "<leader>lgc", function() goto_preview.close_all_win() end, { silent = true, desc = "Close all windows" })
+      vim.keymap.set("n", "<leader>lgr", function() goto_preview.goto_preview_references() end,
+        { silent = true, desc = "Goto references" })
     end
   },
 }
