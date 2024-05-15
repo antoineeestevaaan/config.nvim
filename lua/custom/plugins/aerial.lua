@@ -14,6 +14,10 @@ return {
         end
       })
       vim.keymap.set('n', '<leader>at', ':AerialToggle!<CR>')
+
+      require('which-key').register {
+        ['<leader>a'] = { name = '[A]erial', _ = 'which_key_ignore' },
+      }
     end
   },
 }
