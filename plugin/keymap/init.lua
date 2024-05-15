@@ -2,7 +2,7 @@ vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
 
 vim.keymap.set("n", "<Esc>", ":nohlsearch<CR><Esc>", { silent = true, desc = "Escape and remove the search highlight" })
 
-vim.keymap.set("n", "<leader>pf", vim.cmd.Ex, { silent = true, desc = "O[p]en the [f]ile explorer" })
+vim.keymap.set("n", "<c-p>", vim.cmd.Ex, { silent = true, desc = "O[p]en the [f]ile explorer" })
 
 -- This is going to get me cancelled
 vim.keymap.set("i", "<C-c>", "<Esc>", { desc = "get out of insert mode with control + C" })
