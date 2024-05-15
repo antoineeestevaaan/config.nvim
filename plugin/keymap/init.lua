@@ -8,7 +8,6 @@ vim.keymap.set("n", "<leader>pf", vim.cmd.Ex, { silent = true, desc = "O[p]en th
 vim.keymap.set("i", "<C-c>", "<Esc>", { desc = "get out of insert mode with control + C" })
 
 vim.keymap.set("n", "Q", "<nop>", { desc = "do not do anything on Q" })
-vim.keymap.set("n", "<leader>f", vim.lsp.buf.format, { desc = "format the code with LSP" })
 
 vim.keymap.set(
     "n", "<leader>xs", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]],
