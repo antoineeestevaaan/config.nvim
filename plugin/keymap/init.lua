@@ -19,5 +19,10 @@ vim.keymap.set(
 )
 
 if vim.lsp.inlay_hint then
-    vim.keymap.set('n', '<leader>lih', function() vim.lsp.inlay_hint(0, nil) end, { desc = 'Toggle Inlay Hints' })
+    vim.keymap.set(
+        'n',
+        '<leader>lih',
+        function() vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled()) end,
+        { desc = 'Toggle Inlay Hints' }
+    )
 end
