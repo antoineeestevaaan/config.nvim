@@ -17,8 +17,8 @@ return {
           vim.keymap.set('n', keys, func, { buffer = bufnr, desc = desc })
         end
 
-        nmap('<leader>lrn', vim.lsp.buf.rename, '[R]e[n]ame')
-        nmap('<leader>lca', vim.lsp.buf.code_action, '[C]ode [A]ction')
+        nmap('<leader>lr', vim.lsp.buf.rename, '[R]e[n]ame')
+        nmap('<leader>lc', vim.lsp.buf.code_action, '[C]ode [A]ction')
 
         local telescope = require('telescope.builtin')
         nmap('<leader>lgd', telescope.lsp_definitions, '[G]oto [D]efinition')
