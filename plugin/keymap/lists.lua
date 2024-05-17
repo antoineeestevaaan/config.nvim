@@ -1,11 +1,19 @@
+local nmap = function(keys, func, desc)
+  if desc then
+    desc = 'LIST: ' .. desc
+  end
+
+  vim.keymap.set('n', keys, func, { silent = true, desc = desc })
+end
+
 -- quickfix window
-vim.keymap.set("n", "<leader>co", "<cmd>copen<CR>", { desc = "open quick list" })
-vim.keymap.set("n", "<leader>cc", "<cmd>cclose<CR>", { desc = "close quick list" })
-vim.keymap.set("n", "<leader>cj", "<cmd>copen<CR><cmd>cnext<CR>zz", { desc = "next in quick list" })
-vim.keymap.set("n", "<leader>ck", "<cmd>copen<CR><cmd>cprev<CR>zz", { desc = "previous in quick list" })
+nmap("<leader>co", "<cmd>copen<CR>", "open quick list")
+nmap("<leader>cc", "<cmd>cclose<CR>", "close quick list")
+nmap("<leader>cj", "<cmd>copen<CR><cmd>cnext<CR>zz", "next in quick list")
+nmap("<leader>ck", "<cmd>copen<CR><cmd>cprev<CR>zz", "previous in quick list")
 
 -- loc list
-vim.keymap.set("n", "<leader>lo", "<cmd>lopen<CR>", { desc = "open loc list" })
-vim.keymap.set("n", "<leader>lc", "<cmd>lclose<CR>", { desc = "close loc list" })
-vim.keymap.set("n", "<leader>lj", "<cmd>lopen<CR><cmd>lnext<CR>zz", { desc = "next in loc list" })
-vim.keymap.set("n", "<leader>lk", "<cmd>lopen<CR><cmd>lprev<CR>zz", { desc = "previous in loc list" })
+nmap("<leader>lo", "<cmd>lopen<CR>", "open loc list")
+nmap("<leader>lc", "<cmd>lclose<CR>", "close loc list")
+nmap("<leader>lj", "<cmd>lopen<CR><cmd>lnext<CR>zz", "next in loc list")
+nmap("<leader>lk", "<cmd>lopen<CR><cmd>lprev<CR>zz", "previous in loc list")

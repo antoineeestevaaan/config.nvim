@@ -2,22 +2,30 @@ require('which-key').register {
     ['<leader>w'] = { name = '[W]indows', _ = 'which_key_ignore' },
 }
 
-vim.keymap.set("n", "<leader>wm", "<C-w>_<C-w>|", { silent = true, desc = "[M]aximize the current [w]indow" })
-vim.keymap.set("n", "<leader>wc", "<C-w>o", { silent = true, desc = "[C]lose all but the focused [w]indow" })
-vim.keymap.set("n", "<leader>we", "<C-w>=", { silent = true, desc = "Make all [w]indows [e]qual" })
+local nmap = function(keys, func, desc)
+  if desc then
+    desc = 'SPLIT: ' .. desc
+  end
 
-vim.keymap.set("n", "<leader>wh", "<C-w>h", { silent = true, desc = "Move focus one [w]indow to the left" })
-vim.keymap.set("n", "<leader>wj", "<C-w>j", { silent = true, desc = "Move focus one [w]indow down" })
-vim.keymap.set("n", "<leader>wk", "<C-w>k", { silent = true, desc = "Move focus one [w]indow up" })
-vim.keymap.set("n", "<leader>wl", "<C-w>l", { silent = true, desc = "Move focus one [w]indow to the right" })
+  vim.keymap.set('n', keys, func, { silent = true, desc = desc })
+end
 
-vim.keymap.set("n", "<leader>wH", "<C-w>H", { silent = true, desc = "Move [w]indow to the left" })
-vim.keymap.set("n", "<leader>wJ", "<C-w>J", { silent = true, desc = "Move [w]indow down" })
-vim.keymap.set("n", "<leader>wK", "<C-w>K", { silent = true, desc = "Move [w]indow up" })
-vim.keymap.set("n", "<leader>wL", "<C-w>L", { silent = true, desc = "Move [w]indow to the right" })
+nmap("<leader>wm", "<C-w>_<C-w>|", "[M]aximize the current [w]indow")
+nmap("<leader>wc", "<C-w>o", "[C]lose all but the focused [w]indow")
+nmap("<leader>we", "<C-w>=", "Make all [w]indows [e]qual")
+
+nmap("<leader>wh", "<C-w>h", "Move focus one [w]indow to the left")
+nmap("<leader>wj", "<C-w>j", "Move focus one [w]indow down")
+nmap("<leader>wk", "<C-w>k", "Move focus one [w]indow up")
+nmap("<leader>wl", "<C-w>l", "Move focus one [w]indow to the right")
+
+nmap("<leader>wH", "<C-w>H", "Move [w]indow to the left")
+nmap("<leader>wJ", "<C-w>J", "Move [w]indow down")
+nmap("<leader>wK", "<C-w>K", "Move [w]indow up")
+nmap("<leader>wL", "<C-w>L", "Move [w]indow to the right")
 
 -- These mappings control the size of splits (height/width)
-vim.keymap.set("n", "<leader>ww", "<c-w>5<", { desc = "Make [w]indow [w]ider" })
-vim.keymap.set("n", "<leader>wn", "<c-w>5>", { desc = "Make [w]indow [n]arrower" })
-vim.keymap.set("n", "<leader>wt", "<C-W>+", { desc = "Make [w]indow [t]aller" })
-vim.keymap.set("n", "<leader>ws", "<C-W>-", { desc = "Make [w]indow [s]horter" })
+nmap("<leader>ww", "<c-w>5<", "Make [w]indow [w]ider")
+nmap("<leader>wn", "<c-w>5>", "Make [w]indow [n]arrower")
+nmap("<leader>wt", "<C-W>+", "Make [w]indow [t]aller")
+nmap("<leader>ws", "<C-W>-", "Make [w]indow [s]horter")
