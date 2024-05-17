@@ -4,19 +4,26 @@ require('which-key').register {
   ['<leader>lg'] = { name = '[L]SP [G]oto', _ = 'which_key_ignore' },
 }
 
-vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Go to previous diagnostic message' })
-vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next diagnostic message' })
+local nmap = function(keys, func, desc)
+  if desc then
+    desc = 'LSP: ' .. desc
+  end
 
-vim.keymap.set('n', '<leader>le', vim.diagnostic.open_float, { desc = 'Open floating diagnostic message' })
-vim.keymap.set('n', '<leader>lq', vim.diagnostic.setloclist, { desc = 'Open diagnostics list' })
+  vim.keymap.set('n', keys, func, { silent = true, desc = desc })
+end
 
-vim.keymap.set("n", "<leader>lf", vim.lsp.buf.format, { desc = "format the code with LSP" })
+nmap('[d', vim.diagnostic.goto_prev, 'Go to previous diagnostic message')
+nmap(']d', vim.diagnostic.goto_next, 'Go to next diagnostic message')
+
+nmap('<leader>le', vim.diagnostic.open_float, 'Open floating diagnostic message')
+nmap('<leader>lq', vim.diagnostic.setloclist, 'Open diagnostics list')
+
+nmap("<leader>lf", vim.lsp.buf.format, "format the code with LSP")
+
+local toggle_inlay_hints = function()
+  vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
+end
 
 if vim.lsp.inlay_hint then
-    vim.keymap.set(
-        'n',
-        '<leader>lih',
-        function() vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled()) end,
-        { desc = 'Toggle Inlay Hints' }
-    )
+  nmap('<leader>lih', toggle_inlay_hints, 'Toggle Inlay Hints')
 end
