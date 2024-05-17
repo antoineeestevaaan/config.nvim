@@ -17,12 +17,3 @@ vim.keymap.set(
     "n", "<leader>xx", "<cmd>!chmod +x %<CR>",
     { silent = true, desc = "make the current buffer executable" }
 )
-
-if vim.lsp.inlay_hint then
-    vim.keymap.set(
-        'n',
-        '<leader>lih',
-        function() vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled()) end,
-        { desc = 'Toggle Inlay Hints' }
-    )
-end

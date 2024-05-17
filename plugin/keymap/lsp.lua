@@ -11,3 +11,12 @@ vim.keymap.set('n', '<leader>le', vim.diagnostic.open_float, { desc = 'Open floa
 vim.keymap.set('n', '<leader>lq', vim.diagnostic.setloclist, { desc = 'Open diagnostics list' })
 
 vim.keymap.set("n", "<leader>lf", vim.lsp.buf.format, { desc = "format the code with LSP" })
+
+if vim.lsp.inlay_hint then
+    vim.keymap.set(
+        'n',
+        '<leader>lih',
+        function() vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled()) end,
+        { desc = 'Toggle Inlay Hints' }
+    )
+end
