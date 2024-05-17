@@ -23,7 +23,4 @@ nmap("<leader>lf", vim.lsp.buf.format, "format the code with LSP")
 local toggle_inlay_hints = function()
   vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
 end
-
-if vim.lsp.inlay_hint then
-  nmap('<leader>lih', toggle_inlay_hints, 'Toggle Inlay Hints')
-end
+nmap('<leader>lih', toggle_inlay_hints, 'Toggle Inlay Hints')
