@@ -1,13 +1,15 @@
 return { {
-  'nvim-lualine/lualine.nvim',
-  -- See `:help lualine.txt`
-  opts = {
-    options = {
-      icons_enabled = false,
-      theme = 'onedark',
-      component_separators = '|',
-      section_separators = '',
-    },
-  },
-},
-}
+  "nvim-lualine/lualine.nvim",
+  dependencies = {},
+  config = function()
+    require("lualine").setup({
+      options = {
+        theme = "auto",
+        component_separators = { left = ">", right = "<" },
+      },
+      sections = {
+        lualine_c = { "filename" },
+      },
+    })
+  end
+} }
