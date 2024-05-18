@@ -1,7 +1,9 @@
 local cmp = require 'cmp'
 local luasnip = require 'luasnip'
+local lspkind = require 'lspkind'
 local vscode = require('luasnip.loaders.from_vscode')
 
+lspkind.init {}
 vscode.lazy_load()
 luasnip.config.setup {}
 
@@ -19,6 +21,9 @@ cmp.setup {
   },
   completion = {
     completeopt = 'menu,menuone,noselect'
+  },
+  formatting = {
+    format = lspkind.cmp_format {},
   },
   mapping = cmp.mapping.preset.insert {
     ['<C-n>'] = cmp.mapping.select_next_item(),

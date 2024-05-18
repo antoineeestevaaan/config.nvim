@@ -7,6 +7,7 @@ return { {
     'hrsh7th/cmp-nvim-lsp',
     'hrsh7th/cmp-path',
     'rafamadriz/friendly-snippets',
+    'onsails/lspkind.nvim',
   },
   config = function()
     require "custom.completion"
