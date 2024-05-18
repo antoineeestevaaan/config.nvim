@@ -24,7 +24,7 @@ vim.api.nvim_create_autocmd("TermOpen", {
     command = "startinsert",
 })
 
-vim.cmd.colorscheme("kanagawa")
+vim.cmd.colorscheme("nightshade")
 
 vim.cmd([[
   " Tell Vim which characters to show for expanded TABs,
