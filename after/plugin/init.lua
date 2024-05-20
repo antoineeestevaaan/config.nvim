@@ -9,16 +9,6 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   pattern = '*',
 })
 
--- return true if the `value` is inside the `list`, false otherwise
-local is_in = function(value, list)
-    for _, item in ipairs(list) do
-        if value == item then
-            return true
-        end
-    end
-    return false
-end
-
 vim.api.nvim_create_autocmd("TermOpen", {
     pattern = "*",
     command = "startinsert",
@@ -40,7 +30,9 @@ vim.api.nvim_create_autocmd({ "BufEnter", "WinEnter" }, {
     callback = function ()
         local extra_whitespaces = ""
 
-        if is_in(vim.bo.filetype, {"", "aerial", "help", "presenting_markdown", "neo-tree", "git"}) then
+        if require("custom._utils").is_in(vim.bo.filetype, {
+            "", "aerial", "help", "presenting_markdown", "neo-tree", "git"
+        }) then
             extra_whitespaces = "//"
         else
             extra_whitespaces = "/\\s\\+$\\|\\t/"

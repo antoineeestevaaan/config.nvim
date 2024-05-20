@@ -85,14 +85,13 @@ trouble.setup {
   icons = true,
 }
 
-local toggle = function(mode --[[string]])
-  return function() trouble.toggle(mode) end
-end
-
 require('which-key').register {
   ['<leader>lt'] = { name = '[L]SP [T]rouble', _ = 'which_key_ignore' },
 }
 
+local toggle = function(mode --[[string]])
+  return function() trouble.toggle(mode) end
+end
 nmap("<leader>lto", toggle(nil), "Open diagnostics")
 nmap("<leader>ltw", toggle("workspace_diagnostics"), "Open workspace diagnostics")
 nmap("<leader>ltd", toggle("document_diagnostics"), "Open document diagnostics")
@@ -103,7 +102,6 @@ nmap("<leader>ltr", toggle("lsp_references"), "Open references")
 local jump = function(fn)
   return function() fn({skip_groups = true, jump = true}) end
 end
-
 nmap("<leader>ltj", jump(trouble.next), "Jump to next item")
 nmap("<leader>ltk", jump(trouble.previous), "Jump to previous item")
 nmap("<leader>ltg", jump(trouble.first), "Jump to first item")
