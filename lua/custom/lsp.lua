@@ -106,6 +106,15 @@ nmap("<leader>ltl", toggle("loclist"), "Open loclist")
 nmap("<leader>ltq", toggle("quickfix"), "Open quickfix list")
 nmap("<leader>ltr", toggle("lsp_references"), "Open references")
 
+local jump = function(fn)
+  return function() fn({skip_groups = true, jump = true}) end
+end
+
+nmap("<leader>ltj", jump(trouble.next), "Jump to next item")
+nmap("<leader>ltk", jump(trouble.previous), "Jump to previous item")
+nmap("<leader>ltg", jump(trouble.first), "Jump to first item")
+nmap("<leader>ltG", jump(trouble.last), "Jump to last item")
+
 --------------------------------------------------------------------------------
 local goto_preview = require('goto-preview')
 goto_preview.setup {}
