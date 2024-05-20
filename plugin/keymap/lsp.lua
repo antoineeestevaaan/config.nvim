@@ -1,7 +1,5 @@
 require('which-key').register {
   ['<leader>l'] = { name = '[L]SP', _ = 'which_key_ignore' },
-  ['<leader>lt'] = { name = '[L]SP [T]rouble', _ = 'which_key_ignore' },
-  ['<leader>lg'] = { name = '[L]SP [G]oto', _ = 'which_key_ignore' },
 }
 
 local nmap = function(keys, func, desc)

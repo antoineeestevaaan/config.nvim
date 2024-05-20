@@ -120,6 +120,10 @@ return {
         return function() trouble.toggle(mode) end
       end
 
+      require('which-key').register {
+        ['<leader>lt'] = { name = '[L]SP [T]rouble', _ = 'which_key_ignore' },
+      }
+
       nmap("<leader>lto", toggle(nil), "Open diagnostics")
       nmap("<leader>ltw", toggle("workspace_diagnostics"), "Open workspace diagnostics")
       nmap("<leader>ltd", toggle("document_diagnostics"), "Open document diagnostics")
@@ -142,6 +146,10 @@ return {
 
         vim.keymap.set('n', keys, func, { silent = true, desc = desc })
       end
+
+      require('which-key').register {
+        ['<leader>lg'] = { name = '[L]SP [G]oto', _ = 'which_key_ignore' },
+      }
 
       nmap("<leader>lgd", goto_preview.goto_preview_definition, "Goto definition")
       nmap("<leader>lgt", goto_preview.goto_preview_type_definition, "Goto type")
