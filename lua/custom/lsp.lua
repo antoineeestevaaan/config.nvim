@@ -1,10 +1,4 @@
-local nmap = function(keys, func, desc, bufnr)
-  if desc then
-    desc = 'LSP: ' .. desc
-  end
-
-  vim.keymap.set('n', keys, func, { buffer = bufnr, silent = true, noremap = true, desc = desc })
-end
+local nmap = require("custom._utils").nmap
 
 local on_attach = function(_, bufnr)
   nmap('<leader>lr', vim.lsp.buf.rename, '[R]e[n]ame', bufnr)

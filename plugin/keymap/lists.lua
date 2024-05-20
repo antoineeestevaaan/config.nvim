@@ -1,10 +1,4 @@
-local nmap = function(keys, func, desc)
-  if desc then
-    desc = 'LIST: ' .. desc
-  end
-
-  vim.keymap.set('n', keys, func, { silent = true, desc = desc })
-end
+local nmap = require("custom._utils").nmap
 
 -- quickfix window
 nmap("<leader>co", "<cmd>copen<CR>", "open quick list")

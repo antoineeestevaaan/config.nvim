@@ -1,14 +1,8 @@
+local nmap = require("custom._utils").nmap
+
 require('which-key').register {
     ['<leader>w'] = { name = '[W]indows', _ = 'which_key_ignore' },
 }
-
-local nmap = function(keys, func, desc)
-  if desc then
-    desc = 'SPLIT: ' .. desc
-  end
-
-  vim.keymap.set('n', keys, func, { silent = true, desc = desc })
-end
 
 nmap("<leader>wm", "<C-w>_<C-w>|", "[M]aximize the current [w]indow")
 nmap("<leader>wc", "<C-w>o", "[C]lose all but the focused [w]indow")

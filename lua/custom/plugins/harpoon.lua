@@ -9,14 +9,7 @@ return {
         ['<leader>h'] = { name = '[H]arpoon', _ = 'which_key_ignore' },
       }
 
-      local nmap = function(keys, func, desc)
-        if desc then
-          desc = '[h]arpoon: ' .. desc
-        end
-
-        vim.keymap.set('n', keys, func, { silent = true, desc = desc })
-      end
-
+      local nmap = require("custom._utils").nmap
       nmap("<leader>ha", mark.add_file, "[h]arpoon: [a]dd a file to the menu")
       nmap("<leader>he", ui.toggle_quick_menu, "[h]arpoon: toggle menu [e]ntries")
       nmap("<leader>hh", function() ui.nav_file(1) end, "[h]arpoon: go to first item (left [h])")
