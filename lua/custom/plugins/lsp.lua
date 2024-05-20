@@ -61,6 +61,7 @@ return {
       local servers = {
         clangd = {},
         rust_analyzer = {},
+        pylsp = {},
         lua_ls = {
           Lua = {
             workspace = { checkThirdParty = false },
