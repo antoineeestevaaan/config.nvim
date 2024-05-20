@@ -87,7 +87,7 @@ mason_lspconfig.setup_handlers {
 --------------------------------------------------------------------------------
 local trouble = require("trouble")
 
-require("trouble").setup {
+trouble.setup {
   icons = true,
 }
 
