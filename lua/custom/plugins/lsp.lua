@@ -39,9 +39,9 @@ return {
           print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
         end, '[W]orkspace list [F]olders')
 
-        vim.api.nvim_buf_create_user_command(bufnr, 'Format', function(_)
-          vim.lsp.buf.format()
-        end, { desc = 'Format current buffer with LSP' })
+        vim.api.nvim_buf_create_user_command(
+          bufnr, 'Format', vim.lsp.buf.format, { desc = 'Format current buffer with LSP' }
+        )
       end
 
       -- mason-lspconfig requires that these setup functions are called in this order
@@ -102,6 +102,8 @@ return {
       "nvim-tree/nvim-web-devicons"
     },
     config = function()
+      local trouble = require("trouble")
+
       require("trouble").setup {
         icons = true,
       }
@@ -114,12 +116,16 @@ return {
         vim.keymap.set('n', keys, func, { silent = true, noremap = true, desc = desc })
       end
 
-      nmap("<leader>lto", "<cmd>TroubleToggle<cr>", "Open diagnostics")
-      nmap("<leader>ltw", "<cmd>TroubleToggle workspace_diagnostics<cr>", "Open workspace diagnostics")
-      nmap("<leader>ltd", "<cmd>TroubleToggle document_diagnostics<cr>", "Open document diagnostics")
-      nmap("<leader>ltl", "<cmd>TroubleToggle loclist<cr>", "Open loclist")
-      nmap("<leader>ltq", "<cmd>TroubleToggle quickfix<cr>", "Open quickfix list")
-      nmap("<leader>ltr", "<cmd>TroubleToggle lsp_references<cr>", "Open references")
+      local toggle = function(mode --[[string]])
+        return function() trouble.toggle(mode) end
+      end
+
+      nmap("<leader>lto", toggle(nil), "Open diagnostics")
+      nmap("<leader>ltw", toggle("workspace_diagnostics"), "Open workspace diagnostics")
+      nmap("<leader>ltd", toggle("document_diagnostics"), "Open document diagnostics")
+      nmap("<leader>ltl", toggle("loclist"), "Open loclist")
+      nmap("<leader>ltq", toggle("quickfix"), "Open quickfix list")
+      nmap("<leader>ltr", toggle("lsp_references"), "Open references")
     end
   },
 
@@ -137,11 +143,11 @@ return {
         vim.keymap.set('n', keys, func, { silent = true, desc = desc })
       end
 
-      nmap("<leader>lgd", function() goto_preview.goto_preview_definition() end, "Goto definition")
-      nmap("<leader>lgt", function() goto_preview.goto_preview_type_definition() end, "Goto type")
-      nmap("<leader>lgi", function() goto_preview.goto_preview_implementation() end, "Goto implementation")
-      nmap("<leader>lgc", function() goto_preview.close_all_win() end, "Close all windows")
-      nmap("<leader>lgr", function() goto_preview.goto_preview_references() end, "Goto references")
+      nmap("<leader>lgd", goto_preview.goto_preview_definition, "Goto definition")
+      nmap("<leader>lgt", goto_preview.goto_preview_type_definition, "Goto type")
+      nmap("<leader>lgi", goto_preview.goto_preview_implementation, "Goto implementation")
+      nmap("<leader>lgc", goto_preview.close_all_win, "Close all windows")
+      nmap("<leader>lgr", goto_preview.goto_preview_references, "Goto references")
     end
   },
 }
