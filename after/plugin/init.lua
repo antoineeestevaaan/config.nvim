@@ -16,15 +16,6 @@ vim.api.nvim_create_autocmd("TermOpen", {
 
 vim.cmd.colorscheme("nightshade")
 
-vim.cmd([[
-  " Tell Vim which characters to show for expanded TABs,
-  " trailing whitespace, and end-of-lines. VERY useful!
-  set listchars=tab:>\·,trail:\ ,extends:>,precedes:<,nbsp:+
-
-  " Show problematic characters.
-  set list
-]])
-
 vim.api.nvim_create_autocmd({ "BufEnter", "WinEnter" }, {
     pattern = "*",
     callback = function ()

@@ -35,3 +35,8 @@ vim.opt.shell = "/bin/bash"
 vim.opt.foldenable = false
 vim.opt.foldmethod = "expr"
 vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
+
+vim.opt.list = true
+vim.opt.listchars = {
+    tab = '» ', trail = '·', extends = '>', precedes = '<', nbsp = '␣'
+}
