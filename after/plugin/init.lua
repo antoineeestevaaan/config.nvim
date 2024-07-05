@@ -52,3 +52,7 @@ vim.api.nvim_create_autocmd({ "BufEnter", "WinEnter" }, {
 vim.cmd([[
     command! Browser :!qutebrowser --target window
 ]])
+
+vim.cmd([[
+    autocmd BufNewFile,BufRead .envrc :set filetype=bash
+]])
