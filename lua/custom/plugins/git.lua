@@ -86,7 +86,7 @@ return {
         map('n', '<leader>hS', gs.stage_buffer, { desc = 'git Stage buffer' })
         map('n', '<leader>hu', gs.undo_stage_hunk, { desc = 'undo stage hunk' })
         map('n', '<leader>hR', gs.reset_buffer, { desc = 'git Reset buffer' })
-        map('n', '<leader>hp', gs.preview_hunk, { desc = 'preview git hunk' })
+        map('n', '<leader>hP', gs.preview_hunk, { desc = 'preview git hunk' })
         map('n', '<leader>hb', function()
           gs.blame_line { full = false }
         end, { desc = 'git blame line' })
@@ -94,6 +94,8 @@ return {
         map('n', '<leader>hD', function()
           gs.diffthis '~'
         end, { desc = 'git diff against last commit' })
+        map('n', '<leader>hn', gs.next_hunk, { desc = 'git go to next hunk' })
+        map('n', '<leader>hp', gs.prev_hunk, { desc = 'git go to previous hunk' })
 
         -- Toggles
         map('n', '<leader>tb', gs.toggle_current_line_blame, { desc = 'toggle git blame line' })
