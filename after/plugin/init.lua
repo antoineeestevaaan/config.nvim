@@ -14,7 +14,7 @@ vim.api.nvim_create_autocmd("TermOpen", {
     command = "startinsert",
 })
 
-vim.cmd.colorscheme("nightshade")
+vim.cmd.colorscheme("kanagawa-wave")
 
 vim.api.nvim_create_autocmd({ "BufEnter", "WinEnter" }, {
     pattern = "*",
