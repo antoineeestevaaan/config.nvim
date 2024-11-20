@@ -5,6 +5,7 @@ vim.opt.cursorcolumn = true
 
 vim.opt.colorcolumn = "81,101"
 
+vim.opt.number = true
 vim.opt.relativenumber = true
 
 vim.opt.wrap = false
