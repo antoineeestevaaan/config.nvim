@@ -3,4 +3,5 @@ return {
   { "rebelot/kanagawa.nvim" },
   { 'flazz/vim-colorschemes' },
   { "tjdevries/colorbuddy.nvim" },
+  { "rose-pine/neovim", name = "rose-pine" }
 }
