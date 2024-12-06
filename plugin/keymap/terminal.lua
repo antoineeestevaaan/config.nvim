@@ -1,5 +1,6 @@
-require('which-key').register {
-  ['<leader>t'] = { name = '[T]erminal', _ = 'which_key_ignore' },
+require('which-key').add {
+  { "<leader>t", group = "[T]erminal" },
+  { "<leader>t_", hidden = true },
 }
 
 -- Easily hit escape in terminal mode.

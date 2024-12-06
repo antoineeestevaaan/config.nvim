@@ -1,7 +1,8 @@
 local nmap = require("custom._utils").nmap
 
-require('which-key').register {
-    ['<leader>w'] = { name = '[W]indows', _ = 'which_key_ignore' },
+require('which-key').add {
+    { "<leader>w", group = "[W]indows" },
+    { "<leader>w_", hidden = true },
 }
 
 nmap("<leader>wm", "<C-w>_<C-w>|", "[M]aximize the current [w]indow")

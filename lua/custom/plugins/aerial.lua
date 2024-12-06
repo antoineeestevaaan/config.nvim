@@ -20,8 +20,9 @@ return {
         { silent = true, desc = "Open list of Aerial objets" }
       )
 
-      require('which-key').register {
-        ['<leader>a'] = { name = '[A]erial', _ = 'which_key_ignore' },
+      require('which-key').add {
+        { "<leader>a", group = "[A]erial" },
+        { "<leader>a_", hidden = true },
       }
     end
   },

@@ -1,7 +1,8 @@
 local nmap = require("custom._utils").nmap
 
-require('which-key').register {
-  ['<leader>l'] = { name = '[L]SP', _ = 'which_key_ignore' },
+require('which-key').add {
+    { "<leader>l", group = "[L]SP" },
+    { "<leader>l_", hidden = true },
 }
 
 nmap('[d', vim.diagnostic.goto_prev, 'Go to previous diagnostic message')

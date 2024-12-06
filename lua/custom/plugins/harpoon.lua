@@ -5,8 +5,9 @@ return {
       local mark = require("harpoon.mark")
       local ui = require("harpoon.ui")
 
-      require('which-key').register {
-        ['<leader>h'] = { name = '[H]arpoon', _ = 'which_key_ignore' },
+      require('which-key').add {
+        { "<leader>h", group = "[H]arpoon" },
+        { "<leader>h_", hidden = true },
       }
 
       local nmap = require("custom._utils").nmap
