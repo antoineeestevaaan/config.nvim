@@ -1,67 +1,74 @@
-local nmap = require("custom._utils").nmap
-local telescope = require('telescope')
-local actions = require("telescope.actions")
 local builtin = require("telescope.builtin")
+local pickers = require("telescope.pickers")
+local finders = require("telescope.finders")
+local make_entry = require("telescope.make_entry")
+local conf = require("telescope.config").values
+local sorters = require("telescope.sorters")
 
--- See `:help telescope` and `:help telescope.setup()`
-telescope.setup {
-  defaults = {
-    mappings = {
-      i = {
-        ['<C-u>'] = false,
-        ['<C-d>'] = false,
-        ['<Esc>'] = actions.close,
-        ['<C-l>'] = actions.select_vertical,
-        ['<C-j>'] = actions.select_horizontal,
-      },
-    },
-  },
-}
+local M = {}
 
--- Enable telescope fzf native, if installed
-pcall(telescope.load_extension, 'fzf')
+M.project_files = function(opts)
+  opts = opts or {}
+  opts.prompt_title = opts.prompt_title or "Find project files..."
+  opts.hidden = opts.hidden or true
 
--- Custom live_grep function to search in git root
-local function live_grep_git_root()
-  local git_root = require("custom._utils").find_git_root()
-  if git_root then
-    builtin.live_grep {
-      search_dirs = { git_root },
-    }
+  vim.fn.system("git rev-parse --is-inside-work-tree")
+
+  if vim.v.shell_error == 0 then
+    builtin.git_files(opts)
+  else
+    builtin.find_files(opts)
   end
 end
-vim.api.nvim_create_user_command('LiveGrepGitRoot', live_grep_git_root, {})
 
--- See `:help telescope.builtin`
-nmap('<leader>?', builtin.oldfiles, '[?] Find recently opened files')
-nmap('<leader><space>', function()
-  builtin.buffers {
-    ignore_current_buffer = true,
-    sort_last_used = true
+M.multigrep = function(opts)
+  opts = opts or {}
+  opts.cwd = opts.cwd or vim.uv.cwd()
+
+  local finder = finders.new_async_job {
+    command_generator = function(prompt)
+      if not prompt or prompt == "" then
+        return nil
+      end
+
+      local pieces = vim.split(prompt, "  ")
+      local args = { "rg" }
+      if pieces[1] then
+        table.insert(args, "-e")
+        table.insert(args, pieces[1])
+      end
+      if pieces[2] then
+        table.insert(args, "-g")
+        table.insert(args, pieces[2])
+      end
+
+      ---@diagnostic disable-next-line: deprecated
+      return vim.tbl_flatten {
+        args,
+        { "--color=never", "--no-heading", "--with-filename", "--line-number", "--column", "--smart-case" }
+      }
+    end,
+    entry_maker = make_entry.gen_from_vimgrep(opts),
+    cwd = opts.cwd,
   }
-end, '[ ] Find existing buffers')
-nmap('<leader>/', function()
-  -- You can pass additional configuration to telescope to change theme, layout, etc.
-  builtin.current_buffer_fuzzy_find(require('telescope.themes').get_dropdown {
-    winblend = 10,
-    previewer = false,
-  })
-end, '[/] Fuzzily search in current buffer')
 
-nmap('<leader>sgf', builtin.git_files, 'Search [G]it [F]iles')
-local function telescope_live_grep_open_files()
-  builtin.live_grep {
-    grep_open_files = true,
-    prompt_title = 'Live Grep in Open Files',
+  pickers.new(opts, {
+    debounce = 100,
+    prompt_title = "Multi Grep",
+    finder = finder,
+    previewer = conf.grep_previewer(opts),
+    sorters = sorters.empty(),
+  }):find()
+end
+
+M.lazy_plugins = function()
+  local lazypath = vim.fs.joinpath(vim.fn.stdpath("data"), "lazy")
+  builtin.find_files {
+    prompt_title = "Explore LazyVim plugin files from " .. lazypath .. "...",
+    results_title = false,
+    preview_title = false,
+    cwd = lazypath,
   }
 end
-nmap('<leader>s/', telescope_live_grep_open_files, '[S]earch [/] in Open Files')
-nmap('<leader>ss', builtin.builtin, '[S]earch [S]elect Telescope')
-nmap('<leader>gf', builtin.git_files, 'Search [G]it [F]iles')
-nmap('<leader>sf', builtin.find_files, '[S]earch [F]iles')
-nmap('<leader>sh', builtin.help_tags, '[S]earch [H]elp')
-nmap('<leader>sw', builtin.grep_string, '[S]earch current [W]ord')
-nmap('<leader>slg', builtin.live_grep, '[S]earch by [G]rep')
-nmap('<leader>sG', ':LiveGrepGitRoot<cr>', '[S]earch by [G]rep on Git Root')
-nmap('<leader>sd', builtin.diagnostics, '[S]earch [D]iagnostics')
-nmap('<leader>sr', builtin.resume, '[S]earch [R]esume')
+
+return M
