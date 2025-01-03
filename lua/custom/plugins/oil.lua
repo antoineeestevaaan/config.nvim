@@ -9,6 +9,9 @@ return {
       watch_for_changes = false,
       columns = {
         "icon",
+        { "permissions", highlight = "Floatborder" },
+        { "size",        highlight = "MatchParen" },
+        { "mtime",       highlight = "Whitespace", format = "%Y-%m-%d %T" },
       },
       skip_confirm_for_simple_edits = false,
       prompt_save_on_select_new_entry = true,
