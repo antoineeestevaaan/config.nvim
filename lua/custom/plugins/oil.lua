@@ -1,12 +1,17 @@
 return {
   'stevearc/oil.nvim',
-  opts = {},
   dependencies = { "nvim-tree/nvim-web-devicons" },
   config = function()
     local oil = require("oil")
 
     oil.setup {
-      columns = { "icon", },
+      default_file_explorer = true,
+      watch_for_changes = false,
+      columns = {
+        "icon",
+      },
+      skip_confirm_for_simple_edits = false,
+      prompt_save_on_select_new_entry = true,
       keymaps = {
         ["<C-h>"] = false,
         ["<M-h>"] = "actions.select_split",
