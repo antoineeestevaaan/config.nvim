@@ -1,4 +1,4 @@
-local nmap = require("custom._utils").nmap
+local nmap = require("custom.keymap").nmap
 
 -- Maximize, close and equalize
 nmap("<leader>wm", "<C-w>_<C-w>|")

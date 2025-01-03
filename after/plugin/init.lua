@@ -15,7 +15,7 @@ vim.api.nvim_create_autocmd({ "BufEnter", "WinEnter" }, {
   callback = function()
     local extra_whitespaces = ""
 
-    if require("custom._utils").is_in(vim.bo.filetype, {
+    if require("custom.list").is_in(vim.bo.filetype, {
           "", "aerial", "help", "presenting_markdown", "neo-tree", "git"
         }) then
       extra_whitespaces = "//"

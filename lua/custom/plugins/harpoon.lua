@@ -4,7 +4,7 @@ return {
     config = function()
       local mark = require("harpoon.mark")
       local ui = require("harpoon.ui")
-      local nmap = require("custom._utils").nmap
+      local nmap = require("custom.keymap").nmap
 
       nmap("<leader>ha", mark.add_file)
       nmap("<leader>he", ui.toggle_quick_menu)

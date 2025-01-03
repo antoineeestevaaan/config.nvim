@@ -1,4 +1,4 @@
-local nmap = require("custom._utils").nmap
+local nmap = require("custom.keymap").nmap
 
 -- quickfix
 nmap("<leader>co", "<cmd>copen<CR>")
