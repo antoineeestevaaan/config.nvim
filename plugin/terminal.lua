@@ -27,6 +27,12 @@ local open_terminal = function(pos, size)
   end
 end
 
+---@class FloatingTerminalOptions
+---@field buf integer
+---@field width integer?
+---@field height integer?
+
+---@param opts FloatingTerminalOptions
 local open_floating_terminal = function(opts)
   opts = opts or {}
 

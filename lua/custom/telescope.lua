@@ -7,6 +7,11 @@ local sorters = require("telescope.sorters")
 
 local M = {}
 
+---@class ProjectFilesOptions
+---@field prompt_title string?
+---@field hidden boolean?
+
+---@param opts ProjectFilesOptions
 M.project_files = function(opts)
   opts = opts or {}
   opts.prompt_title = opts.prompt_title or "Find project files..."
@@ -21,6 +26,10 @@ M.project_files = function(opts)
   end
 end
 
+---@class MultiGrepOptions
+---@field cwd string?
+
+---@param opts MultiGrepOptions
 M.multigrep = function(opts)
   opts = opts or {}
   opts.cwd = opts.cwd or vim.uv.cwd()
