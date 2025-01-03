@@ -14,7 +14,7 @@ return {
         topdelete = { text = '‾' },
         changedelete = { text = '~' },
       },
-      on_attach = function(bufnr)
+      on_attach = function(bufnr --[[@param bufnr integer]])
         local gs = require("gitsigns")
 
         local function map(mode, lhs, rhs, opts)
@@ -23,8 +23,8 @@ return {
           vim.keymap.set(mode, lhs, rhs, opts)
         end
 
-        map('n', '<leader>gp', function () gs.nav_hunk("prev") end)
-        map('n', '<leader>gn', function () gs.nav_hunk("next") end)
+        map('n', '<leader>gp', function() gs.nav_hunk("prev") end)
+        map('n', '<leader>gn', function() gs.nav_hunk("next") end)
         map('n', '<leader>gs', gs.stage_hunk)
         map('v', '<leader>gs', function() gs.stage_hunk { vim.fn.line '.', vim.fn.line 'v' } end)
         map('n', '<leader>gr', gs.reset_hunk)
@@ -54,10 +54,10 @@ return {
       "LazyGitFilterCurrentFile",
     },
     dependencies = {
-        "nvim-lua/plenary.nvim",
+      "nvim-lua/plenary.nvim",
     },
     keys = {
-       { "<leader>glg", "<cmd>LazyGit<cr>" }
+      { "<leader>glg", "<cmd>LazyGit<cr>" }
     }
   }
 }

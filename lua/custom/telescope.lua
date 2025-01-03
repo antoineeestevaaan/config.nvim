@@ -26,7 +26,7 @@ M.multigrep = function(opts)
   opts.cwd = opts.cwd or vim.uv.cwd()
 
   local finder = finders.new_async_job {
-    command_generator = function(prompt)
+    command_generator = function(prompt --[[@param prompt string]])
       if not prompt or prompt == "" then
         return nil
       end

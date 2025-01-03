@@ -5,6 +5,12 @@ local state = {
   }
 }
 
+---@class Size
+---@field height integer
+---@field width integer
+
+---@param pos string
+---@param size Size
 local open_terminal = function(pos, size)
   return function()
     vim.cmd.new()

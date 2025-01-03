@@ -17,8 +17,8 @@ local non_default_entries = { url_entry, unpack(lsp_entries) }
 
 local popup_menu_group = vim.api.nvim_create_augroup("nvim_popupmenu", { clear = true })
 
-local disable = function(x) vim.cmd("amenu disable " .. x) end
-local enable = function(x) vim.cmd("amenu enable " .. x) end
+local disable = function(x --[[ @param x string]]) vim.cmd("amenu disable " .. x) end
+local enable = function(x --[[ @param x string]]) vim.cmd("amenu enable " .. x) end
 
 vim.api.nvim_create_autocmd("MenuPopup", {
   pattern = "*",
