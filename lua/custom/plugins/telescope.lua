@@ -55,8 +55,7 @@ return { {
       })
     end)
     vim.keymap.set("n", "<leader>fh", builtin.help_tags)
-    vim.keymap.set("n", "<leader>fg", builtin.live_grep)
+    vim.keymap.set("n", "<leader>fg", ctelescope.multigrep)
     vim.keymap.set("n", "<leader>fp", ctelescope.lazy_plugins)
-    vim.keymap.set("n", "<leader>fm", ctelescope.multigrep)
   end
 } }
