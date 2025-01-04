@@ -7,21 +7,33 @@ local sorters = require("telescope.sorters")
 
 local M = {}
 
----@class ProjectFilesOptions
+---@class GitFilesOptions
+---@field prompt_title string?
+---@field show_untracked boolean?
+
+---@class NoGitFilesOptions
 ---@field prompt_title string?
 ---@field hidden boolean?
+
+---@class ProjectFilesOptions
+---@field git GitFilesOptions
+---@field nogit NoGitFilesOptions
 
 ---@param opts ProjectFilesOptions
 M.project_files = function(opts)
   opts = opts or {}
-  opts.prompt_title = opts.prompt_title or "Find project files..."
-  opts.hidden = opts.hidden or true
+  opts.git = opts.git or {}
+  opts.nogit = opts.nogit or {}
 
   vim.fn.system("git rev-parse --is-inside-work-tree")
 
   if vim.v.shell_error == 0 then
+    opts.prompt_title = opts.git.prompt_title or "Find Git files..."
+    opts.show_untracked = opts.git.show_untracked or false
     builtin.git_files(opts)
   else
+    opts.prompt_title = opts.nogit.prompt_title or "Find files..."
+    opts.hidden = opts.nogit.hidden or false
     builtin.find_files(opts)
   end
 end
