@@ -48,7 +48,12 @@ return { {
 
     telescope.load_extension('fzf')
 
-    vim.keymap.set("n", "<leader>fd", ctelescope.project_files)
+    vim.keymap.set("n", "<leader>fd", function()
+      ctelescope.project_files({
+        git = { show_untracked = true },
+        nogit = { hidden = true },
+      })
+    end)
     vim.keymap.set("n", "<leader>fh", builtin.help_tags)
     vim.keymap.set("n", "<leader>fg", builtin.live_grep)
     vim.keymap.set("n", "<leader>fp", ctelescope.lazy_plugins)
