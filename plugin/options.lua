@@ -39,5 +39,7 @@ vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
 
 vim.opt.list = true
 vim.opt.listchars = {
-    tab = '» ', trail = '·', extends = '>', precedes = '<', nbsp = '␣'
+  tab = '» ', trail = '·', extends = '>', precedes = '<', nbsp = '␣'
 }
+
+vim.g.editorconfig = true
