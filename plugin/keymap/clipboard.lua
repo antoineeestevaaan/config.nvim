@@ -1,3 +1,6 @@
+---@param shortcut string
+---@param action string|function
+---@param modes? string|string[]
 local set = function(shortcut, action, modes)
   vim.keymap.set(modes or { "n", "v" }, shortcut, action)
 end
