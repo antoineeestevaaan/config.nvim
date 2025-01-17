@@ -4,10 +4,10 @@ end
 
 -- yank
 set("<leader>y", [["+y]])
-set("<leader>Y", [["+Y]])
+set("<leader>Y", [["+y$]])
 -- cut
 set("<leader>d", [["+d]])
-set("<leader>D", [["+D]])
+set("<leader>D", [["+d$]])
 -- paste
 set("<leader>p", [["+p]])
 set("<leader>P", [["+P]])
