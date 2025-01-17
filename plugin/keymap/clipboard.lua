@@ -1,9 +1,13 @@
+local set = function(shortcut, action, modes)
+  vim.keymap.set(modes or { "n", "v" }, shortcut, action)
+end
+
 -- yank
-vim.keymap.set({ "n", "v" }, "<leader>y", [["+y]])
-vim.keymap.set({ "n", "v" }, "<leader>Y", [["+Y]])
+set("<leader>y", [["+y]])
+set("<leader>Y", [["+Y]])
 -- cut
-vim.keymap.set({ "n", "v" }, "<leader>d", [["+d]])
-vim.keymap.set({ "n", "v" }, "<leader>D", [["+D]])
+set("<leader>d", [["+d]])
+set("<leader>D", [["+D]])
 -- paste
-vim.keymap.set({ "n", "v" }, "<leader>p", [["+p]])
-vim.keymap.set({ "n", "v" }, "<leader>P", [["+P]])
+set("<leader>p", [["+p]])
+set("<leader>P", [["+P]])
