@@ -4,8 +4,8 @@ vim.keymap.set("n", "Q", "<nop>")
 vim.keymap.set("i", "<C-c>", "<Esc>", { silent = true })
 
 vim.keymap.set(
-    "n", "<leader>zr", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]],
-    { desc = "replace all occurences of the word under the cursor" }
+  "n", "<leader>zr", [[:%s/\(\<<C-r><C-w>\>\)/<C-r><C-w>/gI<Left><Left><Left>]],
+  { desc = "replace all occurences of the word under the cursor" }
 )
 vim.keymap.set("n", "<leader>zx", "<cmd>!chmod +x %<CR>", { silent = true })
 
