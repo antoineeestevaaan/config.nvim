@@ -36,11 +36,15 @@ return { {
     vim.keymap.set("n", '<leader>li', function() vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled()) end)
 
     local rust_analyzer_activate_features = function(opts)
+      local features = vim.split(opts.args, " +", { trimempty = true })
+      if require("custom.list").is_in("all", features) then
+        features = "all"
+      end
       require("lspconfig").rust_analyzer.setup {
         settings = {
           ["rust-analyzer"] = {
             cargo = {
-              features = vim.split(opts.args, " +", { trimempty = true }),
+              features = features,
             },
           }
         }
@@ -63,6 +67,7 @@ return { {
         return
       end
 
+      ---@type string|table
       local features = vim.tbl_get(
         clients[keyset[1]],
         "rust_analyzer",
@@ -73,8 +78,12 @@ return { {
         "features"
       ) or {}
 
-      for _, v in pairs(features) do
-        print(v)
+      if type(features) == "string" then
+        print(features)
+      else
+        for _, v in pairs(features) do
+          print(v)
+        end
       end
     end
 
