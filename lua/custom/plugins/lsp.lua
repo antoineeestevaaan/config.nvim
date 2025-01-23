@@ -35,7 +35,38 @@ return { {
 
     vim.keymap.set("n", '<leader>li', function() vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled()) end)
 
-    -- format on save
+    local rust_analyzer_activate_features = function(opts)
+      require("lspconfig").rust_analyzer.setup {
+        settings = {
+          ["rust-analyzer"] = {
+            cargo = {
+              features = vim.split(opts.args, " +", { trimempty = true }),
+            },
+          }
+        }
+      }
+    end
+
+    local rust_analyzer_show_features = function()
+      local clients = require("lspconfig").rust_analyzer.manager._clients
+      for _, client in pairs(clients) do
+        local features = vim.tbl_get(
+          client,
+          "rust_analyzer",
+          "config",
+          "settings",
+          "rust-analyzer",
+          "cargo",
+          "features"
+        ) or {}
+
+        for _, v in pairs(features) do
+          print(v)
+        end
+      end
+      return 0
+    end
+
     vim.api.nvim_create_autocmd("LspAttach", {
       callback = function(args)
         local client = vim.lsp.get_client_by_id(args.data.client_id)
@@ -43,6 +74,7 @@ return { {
           return
         end
 
+        -- format on save
         if client.supports_method("textDocument/formatting") then
           vim.api.nvim_create_autocmd("BufWritePre", {
             buffer = args.buf,
@@ -50,6 +82,21 @@ return { {
               vim.lsp.buf.format({ bufnr = args.buf, id = client.id })
             end
           })
+        end
+
+        if client.name == "rust_analyzer" then
+          vim.api.nvim_buf_create_user_command(
+            0,
+            'RustAnalyzerFeaturesActivate',
+            rust_analyzer_activate_features,
+            { nargs = '?' }
+          )
+          vim.api.nvim_buf_create_user_command(
+            0,
+            'RustAnalyzerFeaturesShow',
+            rust_analyzer_show_features,
+            {}
+          )
         end
       end
     })
