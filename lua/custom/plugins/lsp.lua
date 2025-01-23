@@ -49,22 +49,33 @@ return { {
 
     local rust_analyzer_show_features = function()
       local clients = require("lspconfig").rust_analyzer.manager._clients
-      for _, client in pairs(clients) do
-        local features = vim.tbl_get(
-          client,
-          "rust_analyzer",
-          "config",
-          "settings",
-          "rust-analyzer",
-          "cargo",
-          "features"
-        ) or {}
 
-        for _, v in pairs(features) do
-          print(v)
-        end
+      local keyset = {}
+      for k, _ in pairs(clients) do
+        table.insert(keyset, k)
       end
-      return 0
+
+      if #keyset ~= 1 then
+        print("expected a single client, found " .. #keyset)
+        for k, _ in pairs(clients) do
+          print("  - " .. k)
+        end
+        return
+      end
+
+      local features = vim.tbl_get(
+        clients[keyset[1]],
+        "rust_analyzer",
+        "config",
+        "settings",
+        "rust-analyzer",
+        "cargo",
+        "features"
+      ) or {}
+
+      for _, v in pairs(features) do
+        print(v)
+      end
     end
 
     vim.api.nvim_create_autocmd("LspAttach", {
