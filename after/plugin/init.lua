@@ -50,3 +50,10 @@ vim.cmd([[
 vim.cmd([[
     autocmd BufNewFile,BufRead .envrc :set filetype=bash
 ]])
+
+vim.filetype.add {
+  extension = {
+    xxd = "xxd",
+    objdump = "asm",
+  }
+}
