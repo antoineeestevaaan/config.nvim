@@ -18,7 +18,7 @@ return { {
     local lc = require("lspconfig")
     local capabilities = require('blink.cmp').get_lsp_capabilities()
 
-    for _, lang in pairs { "lua_ls", "rust_analyzer", "nushell", "clangd" } do
+    for _, lang in pairs { "lua_ls", "rust_analyzer", "nushell", "clangd", "tinymist" } do
       lc[lang].setup { capabilities = capabilities }
     end
 
