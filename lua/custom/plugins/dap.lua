@@ -1,3 +1,4 @@
+---@return string
 local prompt_path_to_exec = function()
   return vim.fn.input({
     prompt = "Path to executable: ",
@@ -6,13 +7,13 @@ local prompt_path_to_exec = function()
   })
 end
 
+---@return string[]
 local prompt_args = function()
   local args_str = vim.fn.input({
     prompt = 'Arguments: ',
   })
   return vim.split(args_str, ' +')
 end
-
 
 return {
   "mfussenegger/nvim-dap",
