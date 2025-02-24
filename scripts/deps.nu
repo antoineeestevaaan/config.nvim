@@ -1,32 +1,14 @@
-const DEPENDENCIES = {
-    lua: {
-        version: "3.13.5",
-        upstream: "https://github.com/LuaLS/lua-language-server/releases/download/{{VERSION}}/lua-language-server-{{VERSION}}-linux-x64.tar.gz",
-        files: [ "bin/lua-language-server" ],
-    },
-    tinymist: {
-        version: "v0.12.18",
-        upstream: "https://github.com/Myriad-Dreamin/tinymist/releases/download/{{VERSION}}/tinymist-x86_64-unknown-linux-gnu.tar.gz",
-        tarball: "tinymist-x86_64-unknown-linux-gnu",
-        files: [ "tinymist" ],
-    },
-    clang: {
-        version: "11.0.0",
-        upstream: "https://github.com/llvm/llvm-project/releases/download/llvmorg-{{VERSION}}/clang+llvm-{{VERSION}}-x86_64-linux-gnu-ubuntu-20.04.tar.xz",
-        tarball: "clang+llvm-{{VERSION}}-x86_64-linux-gnu-ubuntu-20.04"
-        files: [ "bin/clangd", "bin/clang-format" ],
-    }
-}
+const CACHE = "~/.local/share/nvim/cache/" | path expand
 
 def main [] {
-    const CACHE = "~/.local/share/nvim/cache/" | path expand
+    let dependencies = open deps.nuon
 
     mkdir $CACHE
 
-    for k in ($DEPENDENCIES | columns) {
+    for k in ($dependencies | columns) {
         print $k
 
-        let v = $DEPENDENCIES | get $k
+        let v = $dependencies | get $k
         if not ($v.enabled? | default true) {
             continue
         }
