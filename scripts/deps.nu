@@ -1,5 +1,8 @@
 const CACHE = "~/.local/share/nvim/cache/" | path expand
 
+# deps.nuon: a NUON record where
+#   - k: string
+#   - v: record<enabled: bool, version: string, upstream: string, tarball?: string, files: list<string>>
 def main [] {
     let dependencies = open deps.nuon
 
