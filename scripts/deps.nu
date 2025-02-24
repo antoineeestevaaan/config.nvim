@@ -1,29 +1,52 @@
-const LUA_VERSION = "3.13.5"
-const LUA_LANGUAGE_SERVER_ARCHIVE = $"lua-language-server-($LUA_VERSION)-linux-x64.tar.gz"
-const LUA_LANGUAGE_SERVER = $"https://github.com/LuaLS/lua-language-server/releases/download/($LUA_VERSION)/($LUA_LANGUAGE_SERVER_ARCHIVE)"
+const DEPENDENCIES = {
+    lua: {
+        version: "3.13.5",
+        upstream: "https://github.com/LuaLS/lua-language-server/releases/download/{{VERSION}}/lua-language-server-{{VERSION}}-linux-x64.tar.gz",
+        type: "get",
+        files: [ "bin/lua-language-server" ],
+    },
+    tinymist: {
+        version: "v0.12.18",
+        upstream: "https://github.com/Myriad-Dreamin/tinymist",
+        type: "cargo",
+    },
+    clang: {
+        version: "11.0.0",
+        upstream: "https://github.com/llvm/llvm-project/releases/download/llvmorg-{{VERSION}}/clang+llvm-{{VERSION}}-x86_64-linux-gnu-ubuntu-20.04",
+        type: "get",
+        files: [ "bin/clangd", "bin/clang-format" ],
+    }
+}
 
-const TINYMIST_REMOTE = "https://github.com/Myriad-Dreamin/tinymist"
-const TINYMIST_VERSION = "v0.12.18"
+def main [] {
+    const CACHE = "~/.local/share/nvim/cache/" | path expand
 
-def main [lua_dest: path] {
-    const UPSTREAM = "https://github.com/llvm/llvm-project/releases/download/llvmorg-11.0.0"
-    const ARCHIVE = "clang+llvm-11.0.0-x86_64-linux-gnu-ubuntu-20.04"
+    mkdir $CACHE
 
-    http get $"($UPSTREAM)/($ARCHIVE).tar.xz" | save --force --progress $"/tmp/($ARCHIVE).tar.xz"
-    tar xvf $"/tmp/($ARCHIVE).tar.xz" --directory /tmp
-    mkdir ~/.local/bin
-    cp $"/tmp/($ARCHIVE)/bin/clangd" ~/.local/bin/clangd
-    cp $"/tmp/($ARCHIVE)/bin/clang-format" ~/.local/bin/clang-format
+    let _ = $DEPENDENCIES | items { |k, v|
+        print $k
+        match $v.type {
+            "cargo" => {
+                cargo install --root $CACHE --git $v.upstream --locked $k --tag $v.version
+            },
+            "get" => {
+                let url = $v.upstream | str replace --all '{{VERSION}}' $v.version
+                let tmp = mktemp --tmpdir $"nvim-($k).XXXXXXX"
+                http get $url | save --force --progress $tmp
 
-    let dest = $lua_dest | path expand
-    let temp = mktemp --tmpdir lua-language-server.XXXXXXX
-    http get $LUA_LANGUAGE_SERVER | save --force --progress $temp
-    mkdir $dest
-    tar xvf $temp --directory $dest
+                let dest = $CACHE | path join $k
+                mkdir $dest
+                tar xvf $tmp --directory $dest
 
-    cargo install ...[
-        --git $TINYMIST_REMOTE
-        --locked tinymist
-        --tag $TINYMIST_VERSION
-    ]
+                for f in $v.files {
+                    let src = $CACHE | path join $k $f
+                    let dest = $"~/.local/bin/($f | path basename)" | path expand
+                    ln --symbolic $src $dest
+                }
+            },
+            _ => { error make --unspanned {
+                msg: $"unknown dependency type (ansi red_bold)'($v.type)'(ansi reset)"
+            } },
+        }
+    }
 }
