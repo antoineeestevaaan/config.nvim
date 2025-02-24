@@ -12,7 +12,8 @@ const DEPENDENCIES = {
     },
     clang: {
         version: "11.0.0",
-        upstream: "https://github.com/llvm/llvm-project/releases/download/llvmorg-{{VERSION}}/clang+llvm-{{VERSION}}-x86_64-linux-gnu-ubuntu-20.04",
+        upstream: "https://github.com/llvm/llvm-project/releases/download/llvmorg-{{VERSION}}/clang+llvm-{{VERSION}}-x86_64-linux-gnu-ubuntu-20.04.tar.xz",
+        tarball: "clang+llvm-{{VERSION}}-x86_64-linux-gnu-ubuntu-20.04"
         type: "get",
         files: [ "bin/clangd", "bin/clang-format" ],
     }
@@ -23,8 +24,14 @@ def main [] {
 
     mkdir $CACHE
 
-    let _ = $DEPENDENCIES | items { |k, v|
+    for k in ($DEPENDENCIES | columns) {
         print $k
+
+        let v = $DEPENDENCIES | get $k
+        if not ($v.enabled? | default true) {
+            continue
+        }
+
         match $v.type {
             "cargo" => {
                 cargo install --root $CACHE --git $v.upstream --locked $k --tag $v.version
@@ -38,10 +45,12 @@ def main [] {
                 mkdir $dest
                 tar xvf $tmp --directory $dest
 
+                let tarball = $v.tarball? | default "" | str replace --all '{{VERSION}}' $v.version
+
                 for f in $v.files {
-                    let src = $CACHE | path join $k $f
-                    let dest = $"~/.local/bin/($f | path basename)" | path expand
-                    ln --symbolic $src $dest
+                    let src = $dest | path join $tarball $f
+                    let dest = $nu.home-path | path join ".local" "bin" ($f | path basename)
+                    ln --force --symbolic $src $dest
                 }
             },
             _ => { error make --unspanned {
