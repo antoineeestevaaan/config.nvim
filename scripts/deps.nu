@@ -65,12 +65,13 @@ def main [] {
     mkdir $CACHE
 
     for k in ($dependencies | columns) {
-        print $k
-
         let v = $dependencies | get $k
         if not ($v.enabled? | default true) {
+            print $"skipping ($k)"
             continue
         }
+
+        print $"installing ($k)"
 
         let url = $v.upstream | str replace --all '{{VERSION}}' $v.version
         let tmp = mktemp --tmpdir $"nvim-($k).XXXXXXX"
