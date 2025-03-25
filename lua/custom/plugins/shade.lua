@@ -1,6 +1,6 @@
 return {
   "sunjon/shade.nvim",
-  enabled = true,
+  enabled = false,
   config = function()
     require "shade".setup({
       overlay_opacity = 50,
