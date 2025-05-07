@@ -7,7 +7,7 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   pattern = '*',
 })
 
-vim.cmd.colorscheme("rose-pine")
+vim.cmd.colorscheme("catppuccin")
 
 -- Highlight trailing whitespaces
 vim.api.nvim_create_autocmd({ "BufEnter", "WinEnter" }, {
