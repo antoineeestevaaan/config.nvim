@@ -42,6 +42,12 @@ return {
             end
           end,
         },
+        ["<leader>:"] = {
+          "actions.open_cmdline",
+          opts = {
+            shorten_path = false,
+          },
+        },
       },
       view_options = {
         show_hidden = true,
