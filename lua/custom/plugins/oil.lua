@@ -5,11 +5,15 @@ return {
     local oil = require("oil")
 
     local detail = false
-    local DETAILED_COLUMNS = {
-      "icon",
-      { "permissions", highlight = "Floatborder" },
-      { "size",        highlight = "MatchParen" },
-      { "mtime",       highlight = "Whitespace", format = "%Y-%m-%d %T" },
+    local COLUMNS = {
+      ["simple"] = { "icon" },
+      ["detailed"] = {
+        "icon",
+        { "permissions", highlight = "Floatborder" },
+        { "size",        highlight = "MatchParen" },
+        { "mtime",       highlight = "Whitespace", format = "%Y-%m-%d %T" },
+      },
+
     }
 
     function _G.get_oil_winbar()
@@ -25,7 +29,7 @@ return {
     oil.setup {
       default_file_explorer = true,
       watch_for_changes = false,
-      columns = DETAILED_COLUMNS,
+      columns = COLUMNS["simple"],
       skip_confirm_for_simple_edits = true,
       prompt_save_on_select_new_entry = true,
       keymaps = {
@@ -36,9 +40,9 @@ return {
           callback = function()
             detail = not detail
             if detail then
-              oil.set_columns(DETAILED_COLUMNS)
+              oil.set_columns(COLUMNS["detailed"])
             else
-              oil.set_columns({ "icon" })
+              oil.set_columns(COLUMNS["simple"])
             end
           end,
         },
