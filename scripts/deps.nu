@@ -1,15 +1,24 @@
 const CACHE = "~/.local/share/nvim/cache/" | path expand
 const DEP_FILE = "deps.nuon"
 
+def __log [msg: string, level: string, color: string, --stderr] {
+    print --stderr=$stderr $"[(ansi $color)($level)(ansi reset)] ($msg)"
+}
+
+def "log error"   [msg: string] { __log $msg "ERR" "red_bold"       --stderr }
+def "log warning" [msg: string] { __log $msg "WRN" "yellow"         --stderr }
+def "log info"    [msg: string] { __log $msg "INF" "cyan"                    }
+def "log debug"   [msg: string] { __log $msg "DBG" "default_dimmed"          }
+
 def check-dep-file [dependencies: any] {
     let t = $dependencies | describe --detailed
     if $t.type != "record" {
-        print --stderr $"in ($DEP_FILE): expected $. to be a record, got '($t.type)'"
+        log error $"in ($DEP_FILE): expected $. to be a record, got '($t.type)'"
         exit 1
     }
     $t.columns | items { |k, v|
         if $v.type != "record" {
-            print --stderr $"in ($DEP_FILE): expected $.($k) to be a record, got '($v.type)'"
+            log error $"in ($DEP_FILE): expected $.($k) to be a record, got '($v.type)'"
             exit 1
         }
 
@@ -26,7 +35,7 @@ def check-dep-file [dependencies: any] {
             let type = $v.columns | get --ignore-errors $t.name
             if $type == null {
                 if $t.required {
-                    print --stderr $"in ($DEP_FILE): $.($k).($t.name) is required but missing"
+                    log error $"in ($DEP_FILE): $.($k).($t.name) is required but missing"
                     exit 1
                 } else {
                     continue
@@ -35,17 +44,17 @@ def check-dep-file [dependencies: any] {
 
             if $t.type in ["bool", "string"] {
                 if $type != $t.type {
-                    print --stderr $"in ($DEP_FILE): expected $.($k).($t.name) to be a ($t.type), got '($type)'"
+                    log error $"in ($DEP_FILE): expected $.($k).($t.name) to be a ($t.type), got '($type)'"
                     exit 1
                 }
             } else {
                 if $type.length == 0 {
-                    print --stderr $"in ($DEP_FILE): expected $.($k).($t.name) to be a non empty list, got '[]'"
+                    log error $"in ($DEP_FILE): expected $.($k).($t.name) to be a non empty list, got '[]'"
                     exit 1
                 }
                 let type = $type | update values { uniq } | reject length
                 if $type != $t.type {
-                    print --stderr $"in ($DEP_FILE): expected $.($k).($t.name) to be a ($t.type), got '($type)'"
+                    log error $"in ($DEP_FILE): expected $.($k).($t.name) to be a ($t.type), got '($type)'"
                     exit 1
                 }
 
@@ -67,25 +76,28 @@ def main [] {
     for k in ($dependencies | columns) {
         let v = $dependencies | get $k
         if not ($v.enabled? | default true) {
-            print $"skipping ($k)"
+            log warning $"skipping ($k)"
             continue
         }
 
-        print $"installing ($k)"
+        log info $"installing ($k)"
 
         let url = $v.upstream | str replace --all '{{VERSION}}' $v.version
         let tmp = mktemp --tmpdir $"nvim-($k).XXXXXXX"
+        log debug $"pulling (ansi purple)($url)(ansi reset)"
         http get $url | save --force --progress $tmp
 
         let dest = $CACHE | path join $k
         mkdir $dest
-        tar xvf $tmp --directory $dest
+        log debug $"extracting (ansi purple)($tmp)(ansi reset)"
+        tar xf $tmp --directory $dest
 
         let tarball = $v.tarball? | default "" | str replace --all '{{VERSION}}' $v.version
 
         for f in $v.files {
             let src = $dest | path join $tarball $f
             let dest = $nu.home-path | path join ".local" "bin" ($f | path basename)
+            log debug $"linking (ansi purple)($src)(ansi reset) -> (ansi purple)($dest)(ansi reset)"
             ln --force --symbolic $src $dest
         }
     }
