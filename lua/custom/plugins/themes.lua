@@ -1,7 +1,7 @@
 return {
-  { 'navarasu/onedark.nvim' },
-  { "rebelot/kanagawa.nvim" },
-  { 'flazz/vim-colorschemes' },
-  { "tjdevries/colorbuddy.nvim" },
-  { "rose-pine/neovim", name = "rose-pine" }
+  { 'navarasu/onedark.nvim',                enabled = false },
+  { "rebelot/kanagawa.nvim",                enabled = false },
+  { 'flazz/vim-colorschemes',               enabled = false },
+  { "tjdevries/colorbuddy.nvim",            enabled = false },
+  { "rose-pine/neovim", name = "rose-pine", enabled = false },
 }

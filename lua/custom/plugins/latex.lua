@@ -1,6 +1,7 @@
 return {
   {
     "nvim-telescope/telescope-bibtex.nvim",
+    enabled = false,
     requires = {
       { 'nvim-telescope/telescope.nvim' },
     },
@@ -13,5 +14,8 @@ return {
     end,
   },
 
-  { "lervag/vimtex" },
+  {
+    "lervag/vimtex",
+    enabled = false,
+  },
 }

@@ -1,6 +1,7 @@
 return {
   {
     "laytan/cloak.nvim",
+    enabled = false,
     config = function()
       require('cloak').setup({
         enabled = true,
@@ -19,6 +20,7 @@ return {
 
   {
     "folke/todo-comments.nvim",
+    enabled = false,
     dependencies = {
       "nvim-lua/plenary.nvim"
     },
@@ -29,10 +31,19 @@ return {
     end
   },
 
-  { "folke/twilight.nvim" },
+  {
+    "folke/twilight.nvim",
+    enabled = false,
+  },
 
-  { "christoomey/vim-tmux-navigator" },
+  {
+    "christoomey/vim-tmux-navigator",
+    enabled = false,
+  },
 
-
-  { "KilianVounckx/nvim-tetris",     commit = "3a791b74bbee29e2e4452d2776415de4f3f3e08b" },
+  {
+    "KilianVounckx/nvim-tetris",
+    commit = "3a791b74bbee29e2e4452d2776415de4f3f3e08b",
+    enabled = false,
+  },
 }

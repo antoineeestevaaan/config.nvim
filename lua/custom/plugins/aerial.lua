@@ -1,6 +1,7 @@
 return {
   {
     'stevearc/aerial.nvim',
+    enabled = false,
     opts = {},
     dependencies = {
       "nvim-treesitter/nvim-treesitter",

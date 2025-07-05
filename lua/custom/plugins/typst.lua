@@ -1,14 +1,14 @@
 return {
   {
     'kaarmu/typst.vim',
-    enabled = true,
+    enabled = false,
     ft = 'typst',
     lazy = false,
   },
 
   {
     'chomosuke/typst-preview.nvim',
-    enabled = true,
+    enabled = false,
     ft = 'typst',
     lazy = false,
     version = '0.1.*',
